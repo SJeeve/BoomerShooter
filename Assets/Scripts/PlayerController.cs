@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public static PlayerController instance;
-
+    public static Camera cam;
     public Rigidbody2D rb;
 
     public Camera camView;
@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     public GameObject bulletImpact;
     public int currentAmmo;
 
+    public Animator gunAnim; 
     private void Awake()
     {
         /*
@@ -37,6 +38,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         camView = GetComponentInChildren<Camera>();
+        cam = camView;
     }
 
     // Update is called once per frame
@@ -48,24 +50,15 @@ public class PlayerController : MonoBehaviour
         Vector3 moveInputHorizontal = transform.up * -_moveInput.x;
 
         Vector3 moveInputVertical = transform.right * _moveInput.y;
-
-        Debug.Log(moveInputVertical + " " + moveInputHorizontal);
         rb.velocity = (moveInputHorizontal + moveInputVertical) * moveSpeed;
         //Player mouse controls
         _mouseInput = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y")) * mouseSensitivity;
         transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x,
-            transform.rotation.eulerAngles.y + _mouseInput.x,
-            transform.rotation.eulerAngles.z);
-        Vector3 rotateAmount = camView.transform.localRotation.eulerAngles + new Vector3(-_mouseInput.y, 0f, 0f);
-        //This code is a little funky because mathf.clamp doesn't work with these angles
-            if(rotateAmount.x < maxAngle && rotateAmount.x > 180)
-            {
-                rotateAmount.x = maxAngle;
-            } else if (rotateAmount.x > minAngle && rotateAmount.x < 180)
-            {
-                rotateAmount.x = minAngle;
-            }
-        camView.transform.localRotation = Quaternion.Euler(rotateAmount.x, rotateAmount.y, rotateAmount.z);
+            transform.rotation.eulerAngles.y,
+            transform.rotation.eulerAngles.z - _mouseInput.x);
+        Vector3 rotateAmount = camView.transform.localRotation.eulerAngles + new Vector3(0f, _mouseInput.y, 0f);
+
+        camView.transform.localRotation = Quaternion.Euler(rotateAmount.x, Mathf.Clamp(rotateAmount.y, minAngle, maxAngle), rotateAmount.z);
 
         //Shooting
         if (Input.GetMouseButtonDown(0))
@@ -85,6 +78,7 @@ public class PlayerController : MonoBehaviour
                     Debug.Log("I'm looking at nothing!");
                 }
                 currentAmmo--;
+                gunAnim.SetTrigger("Shoot");
             }
         }
     }

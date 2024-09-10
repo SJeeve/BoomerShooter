@@ -8,6 +8,7 @@ public class BillBoard : MonoBehaviour
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.flipX = true;
     }
 
     void Update()

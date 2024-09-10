@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3630224762322592189}
   - component: {fileID: 2696716056706089695}
   - component: {fileID: 532818698536855504}
+  - component: {fileID: 4233688905860768377}
   m_Layer: 0
   m_Name: BulletImpact
   m_TagString: Untagged
@@ -74,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -4178046375966092550, guid: 97595eaa9b55c85468fd06791b573d51, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -120,4 +121,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5b0c38301a54be44800ed4bb09dc64b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifeTime: 0.5
+  lifeTime: 0.3
+--- !u!114 &4233688905860768377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3628609801937680134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 070761e479a5d094db8a3b90f7a554b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
