@@ -70,8 +70,12 @@ public class PlayerController : MonoBehaviour
                 RaycastHit hit;
                 if (Physics.Raycast(ray, out hit))
                 {
-                    Debug.Log("I'm looking at " + hit.transform.name);
                     Instantiate(bulletImpact, hit.point, transform.rotation);
+                    if(hit.transform.tag == "Enemy")
+                    {
+                        Debug.Log("Here");
+                        hit.transform.parent.GetComponent<EnemyController>().TakeDamage();
+                    }
                 }
                 else
                 {
